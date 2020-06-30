@@ -15,6 +15,8 @@ class App extends Component {
 
     switchNameHandler = () => {
         // DO NOT try to mutate state directly  this.state.persons[0] = 'JoJo'
+        // state updates will be merged with prev state, otherState still exists
+        // in the state obj
         this.setState({
             persons: [
                 {name: 'JoeyChanged', age: 223},
@@ -40,17 +42,12 @@ class App extends Component {
             }    
         </div>
         )
-
-
-
-
     }
 }
 
 export default App;
-
-
-// <Person name = "Joe" age = "24" />
+    // {props.children} in Person.js will render "Hobbies.." text within <Person> tags
+// <Person name = "Joe" age = "24" />   // {props.children} will render Hobbies..
 // <Person name = "Alex" age = "12"> Hobbies are gaming, gaming, ... </Person>
 // <Person name = "Moe" age = "45" />
 
