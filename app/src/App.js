@@ -6,7 +6,8 @@ import Person from './Person/Person'
 
 const App = () => {
     
-    const [personsState, setPersonsState ] = useState({
+    const [personsState, setPersonsState ] = 
+    useState({
         persons: [
             {name: 'Joey', age: 22},
             {name: 'Alexander', age: 34},
@@ -34,7 +35,8 @@ const App = () => {
     return (
     <div className="App">
         <h1> Starter App</h1>
-        {/* DO NOT use this {this.switchNameHandler()} as it will execute immediately when App is rendered and exceed Maximum Update depth */}
+        {/* DO NOT use this {this.switchNameHandler()} as 
+        // it will execute immediately when App is rendered and exceed Maximum Update depth */}
         <button onClick = {switchNameHandler}> Switch Name</button>
 
         {personsState.persons.map((item, index) => {
@@ -45,10 +47,6 @@ const App = () => {
         }    
     </div>
     )
-
-
-
-
 
 }
 
