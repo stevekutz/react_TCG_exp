@@ -29,6 +29,7 @@ class App extends Component {
         return (
         <div className="App">
             <h1> Starter App</h1>
+            {/* DO NOT use this {this.switchNameHandler()} as it will execute immediately when App is rendered and exceed Maximum Update depth */}
             <button onClick = {this.switchNameHandler}> Switch Name</button>
 
             {this.state.persons.map((item, index) => {
