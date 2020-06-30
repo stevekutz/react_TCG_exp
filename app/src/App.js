@@ -4,7 +4,7 @@ import './App.css';
 
 import Person from './Person/Person'
 
-const App = () => {
+const App = (props) => {
     
     const [personsState, setPersonsState ] = 
     useState({
@@ -17,7 +17,8 @@ const App = () => {
         otherState: 'some value'
     })
 
-    console.log(personsState);
+    console.log('props >> ', props)
+    console.log('personState ', personsState);
 
     const switchNameHandler = () => {
         // Unlike how ssetState merges state, hooks will replace the previous state
@@ -41,7 +42,9 @@ const App = () => {
 
         {personsState.persons.map((item, index) => {
             return (
-                <Person key = {index} name = {item.name} age = {item.age}/>
+                <Person key = {index} name = {item.name} age = {item.age}
+                        clickPassedMethod = {switchNameHandler}
+                />
             )    
         })
         }    
