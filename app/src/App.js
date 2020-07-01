@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import logo from './logo.svg';
 import './App.css';
 
 import Person from './Person/Person'
 
+
+    
 class App extends Component {
     state = {
         persons: [
@@ -14,7 +17,7 @@ class App extends Component {
     }
 
     switchNameHandler = () => {
-        // DO NOT try to mutate state directly  this.state.persons[0] = 'JoJo'
+        // Unlike how setState merges state
         this.setState({
             persons: [
                 {name: 'JoeyChanged', age: 223},
@@ -28,23 +31,22 @@ class App extends Component {
         return (
         <div className="App">
             <h1> Starter App</h1>
-            {/* DO NOT use this {this.switchNameHandler()} as it will execute
-            //  immediately when App is rendered and exceed Maximum Update depth */}
+            {/* DO NOT use this {this.switchNameHandler()} as 
+            // it will execute immediately when App is rendered and exceed Maximum Update depth */}
             <button onClick = {this.switchNameHandler}> Switch Name</button>
-
+    
             {this.state.persons.map((item, index) => {
                 return (
-                    <Person key = {index} name = {item.name} age = {item.age}/>
+                    <Person key = {index} name = {item.name} age = {item.age}
+                        clickPassedMethod = {this.switchNameHandler}
+                    />
                 )    
             })
             }    
         </div>
         )
-
-
-
-
     }
+
 }
 
 export default App;
