@@ -42,8 +42,18 @@ class App extends Component {
         })
     }
 
+    inputNameHandler = (event) => {
+        this.setState({
+            persons: [
+                {name: 'Joey', age: 22}, 
+                {name: event.target.value, age: 88},
+                {name: 'Mike', age: 44},
+            ]
+        })
+    }
+
     restoreState = () => {
-        this.setState({ ...origState})  
+        this.setState({ origState})  
     }
 
     render() {
@@ -64,6 +74,7 @@ class App extends Component {
             <Person 
                 name = {this.state.persons[1].name} 
                 age = {this.state.persons[1].age} 
+                inputNewName = {this.inputNameHandler}
                 clickPassedMethod = {this.switchNameHandler} > Hobbies are gaming, gaming, ... </Person>
             <Person 
                 name = {this.state.persons[2].name} 
