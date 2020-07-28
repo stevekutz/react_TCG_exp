@@ -57,6 +57,17 @@ class App extends Component {
     }
 
     render() {
+
+     const style = {
+          backgroundColor: 'white',
+          font: 'inherit',
+          border: '1px solid blue',
+          padding: '8px',
+     }
+
+
+
+
         return (
         <div className="App">
             <h1> Starter App</h1>
@@ -66,7 +77,7 @@ class App extends Component {
             <button onClick = {() => this.switchNameHandler() }> Switch Name with Arrow func </button>
             <button onClick = {this.changeFirstName.bind(this, 'NameChange with Bind' )}> Change First Name with Bind</button>
             <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>
-            <button onClick = {this.restoreState}> Restore State  </button>    
+            <button style = {style} onClick = {this.restoreState}> Restore State  </button>    
 
             <Person 
                 name = {this.state.persons[0].name} 
