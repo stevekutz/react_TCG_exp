@@ -19,7 +19,8 @@ class App extends Component {
             {name: 'Alexander', age: 34},
             {name: 'Mike', age: 44},
         ],
-        otherState: 'some value'
+        otherState: 'some value',
+        showPersons: false,
     }
 
     switchNameHandler = () => {
@@ -56,6 +57,15 @@ class App extends Component {
         this.setState({ origState})  
     }
 
+
+    togglePersonsHandler = () => {
+         this.setState({
+              showPersons: !this.state.showPersons,
+         })
+
+    }
+
+
     render() {
 
      const style = {
@@ -63,35 +73,46 @@ class App extends Component {
           font: 'inherit',
           border: '1px solid blue',
           padding: '8px',
+          cursor: 'pointer',
      }
-
 
 
 
         return (
         <div className="App">
-            <h1> Starter App</h1>
+               <h1> Starter App</h1>
             {/* DO NOT use this {this.switchNameHandler()} as 
             // it will execute immediately when App is rendered and exceed Maximum Update depth */}
+               {/*   
             <button onClick = {this.switchNameHandler}> Switch Name</button>
             <button onClick = {() => this.switchNameHandler() }> Switch Name with Arrow func </button>
             <button onClick = {this.changeFirstName.bind(this, 'NameChange with Bind' )}> Change First Name with Bind</button>
             <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>
             <button style = {style} onClick = {this.restoreState}> Restore State  </button>    
+               */}
 
-            <Person 
-                name = {this.state.persons[0].name} 
-                age = {this.state.persons[0].age} />
-            <Person 
-                name = {this.state.persons[1].name} 
-                age = {this.state.persons[1].age} 
-                inputNewName = {this.inputNameHandler}
-                clickPassedMethod = {this.switchNameHandler} > Hobbies are gaming, gaming, ... </Person>
-            <Person 
-                name = {this.state.persons[2].name} 
-                age = {this.state.persons[2].age} />
-            
-            
+          <button
+               style = {style}
+               onClick = {this.togglePersonsHandler}
+          > Toggle Person components</button>       
+
+          {this.state.showPersons ? 
+               <div>    
+                    <Person 
+                         name = {this.state.persons[0].name} 
+                         age = {this.state.persons[0].age} />
+                    <Person 
+                         name = {this.state.persons[1].name} 
+                         age = {this.state.persons[1].age} 
+                         inputNewName = {this.inputNameHandler}
+                         clickPassedMethod = {this.switchNameHandler} > Hobbies are gaming, gaming, ... </Person>
+                    <Person 
+                         name = {this.state.persons[2].name} 
+                         age = {this.state.persons[2].age} />
+               </div>  
+          : null     
+          }  
+
         </div>
         )
     }
