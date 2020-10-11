@@ -93,8 +93,7 @@ class App extends Component {
 
           <button
                style = {style}
-               onClick = {this.togglePersonsHandler}
-          > Toggle Person components</button>       
+               onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
 
           {this.state.showPersons ? 
                <div>    
