@@ -1,37 +1,39 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 import Person from './Person/Person'
+var shortid = require('shortid');
+
 
 const origState = {
     persons: [
-        {name: 'Joey', age: 22},
-        {name: 'Alexander', age: 34},
-        {name: 'Mike', age: 44},
-    ]    
+        {id: shortid.generate(),  name: 'Joey', age: 22},
+        {id: shortid.generate(), name: 'Alexander', age: 34},
+        {id: shortid.generate(), name: 'Mike', age: 44},
+    ]  
 }
     
 class App extends Component {
     state = {
         persons: [
-            {name: 'Joey', age: 22},
-            {name: 'Alexander', age: 34},
-            {name: 'Mike', age: 44},
+            {id: shortid.generate(),  name: 'Joey', age: 22},
+            {id: shortid.generate(), name: 'Alexander', age: 34},
+            {id: shortid.generate(), name: 'Mike', age: 44},
         ],
         otherState: 'some value',
         showPersons: false,
     }
 
-    switchNameHandler = () => {
-        this.setState({
-            persons: [
-                {name: 'JoeyChanged', age: 223},
-                {name: 'AlexanderUpdated', age: 342},
-                {name: 'MikeNew', age: 447},
-            ]
-        })
-    }
+    // switchNameHandler = () => {
+    //     this.setState({
+    //         persons: [
+    //             {name: 'JoeyChanged', age: 223},
+    //             {name: 'AlexanderUpdated', age: 342},
+    //             {name: 'MikeNew', age: 447},
+    //         ]
+    //     })
+    // }
 
     changeFirstName = (newName) =>  {
         this.setState({
@@ -43,28 +45,48 @@ class App extends Component {
         })
     }
 
-    inputNameHandler = (event) => {
-        this.setState({
-            persons: [
-                {name: 'Joey', age: 22}, 
-                {name: event.target.value, age: 88},
-                {name: 'Mike', age: 44},
-            ]
+    inputNameHandler = (event, id) => {
+        // returns index if id is located in state
+        const personIndex = this.state.persons.findIndex( p => {
+            return p.id === id;
         })
+    
+        // create copy of state at located id
+        const person = {...this.state.persons[personIndex]};
+
+        // create new data from event value info
+        person.name = event.target.value;
+
+        // make copy of state
+        const persons_copy = [...this.state.persons];
+
+        // set info at personIndex from copy of state
+        persons_copy[personIndex] = person;
+
+        // set state with updated data
+        this.setState({persons: persons_copy});
+    
+    
     }
 
     restoreState = () => {
-        this.setState({ origState})  
+        this.setState({ persons: origState.persons})  
     }
 
 
-    togglePersonsHandler = () => {
-         this.setState({
-              showPersons: !this.state.showPersons,
-         })
+    togglePersonsHandler = () => {    
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
 
     }
 
+    deletePersonHandler = (index) => {
+        // get all persons from state and copy into a new array, do not modify state directly
+        // const persons = this.state.persons.slice();
+        const persons = [...this.state.persons]; // another way to copy into a new array
+        persons.splice(index, 1);
+        this.setState({persons: persons})
+    }
 
     render() {
 
@@ -82,12 +104,15 @@ class App extends Component {
             persons = (
                 <div> 
                     {/* using map to RETURN an array of items fed as attributes to the Person component  */}
-                    {this.state.persons.map(item => {
+                    {this.state.persons.map((person, index) => {
                         return <Person 
-                            key = {item.name} 
-                            name = {item.name} 
-                            age = {item.name} 
-                            readOnly = {!item.showPersons}> {this.state.showPersons.toString()} </Person>
+                            key = {person.id} 
+                            name = {person.name} 
+                            age = {person.name} 
+                            // readOnly = {!person.showPersons}
+                            clickDelete = {() => this.deletePersonHandler(index)}
+                            clickChanged = {(event) => this.inputNameHandler(event, person.id)}
+                            />
                     })}
 
                     {/*
@@ -119,12 +144,12 @@ class App extends Component {
             <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>
             <button style = {style} onClick = {this.restoreState}> Restore State  </button>    
                */}
-
-          <button
-               style = {style}
-               onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
-               {/*  added persons obj to be dynamically rendered */}
-               {persons}
+               <button style = {style} onClick = {this.restoreState}> Restore State  </button>
+                <button
+                    style = {style}
+                    onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
+                    {/*  added persons obj to be dynamically rendered */}
+                    {persons}
  
 
         </div>
