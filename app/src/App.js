@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import Radium, {StyleRoot} from 'radium';
+// import Radium, {StyleRoot} from 'radium';
 
 import Person from './Person/Person'
 var shortid = require('shortid');
@@ -161,7 +161,7 @@ class App extends Component {
 
 
         return (
-        <StyleRoot>
+
             <div className="App">
                 <h1> Starter App</h1>
                 <p className = {class_list.join(' ')} > Dynamically set class here </p>
@@ -186,15 +186,16 @@ class App extends Component {
                         {persons}
     
 
-            </div>
-        </StyleRoot>    
+            </div>    
         )
     }
 
 }
 
-// export default App;
-export default Radium(App);   
+export default App;
+
+
+// export default Radium(App);   
 // radium is used as a HOC
 
 
