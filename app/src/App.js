@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import Radium, {StyleRoot} from 'radium';
 
 import Person from './Person/Person'
 var shortid = require('shortid');
+
 
 
 const origState = {
@@ -41,6 +43,7 @@ class App extends Component {
                 {name: newName, age: 223},
                 {name: 'Alexander', age: 34},
                 {name: 'Mike', age: 44},
+                
             ]
         })
     }
@@ -83,19 +86,25 @@ class App extends Component {
     deletePersonHandler = (index) => {
         // get all persons from state and copy into a new array, do not modify state directly
         // const persons = this.state.persons.slice();
-        const persons = [...this.state.persons]; // another way to copy into a new array
-        persons.splice(index, 1);
-        this.setState({persons: persons})
+        const persons_copy = [...this.state.persons]; // another way to copy into a new array
+        persons_copy.splice(index, 1);
+        this.setState({persons: persons_copy})
     }
 
     render() {
 
      const style = {
-          backgroundColor: 'white',
-          font: 'inherit',
-          border: '1px solid blue',
-          padding: '8px',
-          cursor: 'pointer',
+            backgroundColor: 'seagreen',
+            font: 'inherit',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black',
+
+            }
+
      }
 
         let persons = null
@@ -108,7 +117,7 @@ class App extends Component {
                         return <Person 
                             key = {person.id} 
                             name = {person.name} 
-                            age = {person.name} 
+                            age = {person.age} 
                             // readOnly = {!person.showPersons}
                             clickDelete = {() => this.deletePersonHandler(index)}
                             clickChanged = {(event) => this.inputNameHandler(event, person.id)}
@@ -128,37 +137,65 @@ class App extends Component {
                     //       name = {this.state.persons[2].name} 
                     //       age = {this.state.persons[2].age} />
                     */}
-                </div>  
+                </div>
+
             );
+                style.backgroundColor = 'deeppink';
+                style[':hover'] = {
+                    backgroundColor: 'lightpink',
+                    color: 'black', 
+                }
         }
 
-        return (
-        <div className="App">
-               <h1> Starter App</h1>
-            {/* DO NOT use this {this.switchNameHandler()} as 
-            // it will execute immediately when App is rendered and exceed Maximum Update depth */}
-               {/*   
-            <button onClick = {this.switchNameHandler}> Switch Name</button>
-            <button onClick = {() => this.switchNameHandler() }> Switch Name with Arrow func </button>
-            <button onClick = {this.changeFirstName.bind(this, 'NameChange with Bind' )}> Change First Name with Bind</button>
-            <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>
-            <button style = {style} onClick = {this.restoreState}> Restore State  </button>    
-               */}
-               <button style = {style} onClick = {this.restoreState}> Restore State  </button>
-                <button
-                    style = {style}
-                    onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
-                    {/*  added persons obj to be dynamically rendered */}
-                    {persons}
- 
+        // classnames are defined here to be set dynamically based on showPersons True of False
+        // let class_list = ['red', 'bold'].join(' ')
 
-        </div>
+        const class_list = [];
+
+        if (this.state.persons.length <= 2) {
+            class_list.push('red')
+        }
+        if (this.state.persons.length <= 1) {
+            class_list.push('bold')
+        }
+
+
+        return (
+        <StyleRoot>
+            <div className="App">
+                <h1> Starter App</h1>
+                <p className = {class_list.join(' ')} > Dynamically set class here </p>
+                {/* DO NOT use this {this.switchNameHandler()} as 
+                // it will execute immediately when App is rendered and exceed Maximum Update depth */}
+                {/*   
+                <button onClick = {this.switchNameHandler}> Switch Name</button>
+                <button onClick = {() => this.switchNameHandler() }> Switch Name with Arrow func </button>
+                <button onClick = {this.changeFirstName.bind(this, 'NameChange with Bind' )}> Change First Name with Bind</button>
+                <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>
+                <button style = {style} onClick = {this.restoreState}> Restore State  </button>    
+                */}
+                <button
+                        key = {() => shortid.generate()} 
+                        style = {style} 
+                        onClick = {this.restoreState}> Restore State  </button>
+                    <button
+                        style = {style}
+                        key = {2}
+                        onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
+                        {/*  added persons obj to be dynamically rendered */}
+                        {persons}
+    
+
+            </div>
+        </StyleRoot>    
         )
     }
 
 }
 
-export default App;
+// export default App;
+export default Radium(App);   
+// radium is used as a HOC
 
 
 // <Person name = "Joe" age = "24" />

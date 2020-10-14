@@ -6,3 +6,13 @@
      padding: 16px;
      text-align: center;
 }
+
+/* using traditional media queries  */
+/* @media (max-width: 500px) {
+     .personDiv {
+          width: 450 px;
+          background-color: cadetblue;
+     }
+} */
+
+/* see Person.js for Radium usage for media queiries */
