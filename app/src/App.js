@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 //import './App.css';
 // import Radium, {StyleRoot} from 'radium';
 // import styled from 'styled-components';
-import './App.module.css'
 import classes from './App.module.css';
 
 import Person from './Person/Person'
@@ -151,6 +150,7 @@ class App extends Component {
 
         let persons = null
         let btnClass = [classes.Button];
+        // let btnClass = '';
 
         
         // upon re-render, a new random number is generated for all mapped items
@@ -183,6 +183,7 @@ class App extends Component {
 
 
         btnClass.push(classes.Red);
+        // btnClass = classes.Red
 
         }
 
@@ -225,7 +226,9 @@ class App extends Component {
                         //style = {style}
                         //key = {2}
                         // list_displayed = {this.state.showPersons}
-                        className = {btnClass.join(' ')}
+                        // className = {btnClass.join(' ')}
+
+                        className = {btnClass.join(' ')}    
                         onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
                         {/*  added persons obj to be dynamically rendered */}
                         {persons}
