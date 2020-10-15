@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 // import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 // import Radium, {StyleRoot} from 'radium';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import './App.module.css'
+import classes from './App.module.css';
 
 import Person from './Person/Person'
 var shortid = require('shortid');
@@ -18,22 +20,22 @@ var shortid = require('shortid');
 //
 // also, this can applied within hover
 
-const StyledButton = styled.button`
-    background-color: ${props => props.list_displayed ? 'deeppink' : 'seagreen'};
-    font: inherit;
-    border: 1px solid blue;
-    padding: 8px;
-    cursor: pointer;
-    margin: 2px;
-    border-radius: 5px;
+// const StyledButton = styled.button`
+//     background-color: ${props => props.list_displayed ? 'deeppink' : 'seagreen'};
+//     font: inherit;
+//     border: 1px solid blue;
+//     padding: 8px;
+//     cursor: pointer;
+//     margin: 2px;
+//     border-radius: 5px;
 
-    &:hover {
-        background-color: ${props => props.list_displayed ? 'lightpink' : 'lightgreen'};
-        color: black;
+//     &:hover {
+//         background-color: ${props => props.list_displayed ? 'lightpink' : 'lightgreen'};
+//         color: black;
 
-    }
+//     }
 
-`;
+// `;
 
 
 
@@ -148,6 +150,8 @@ class App extends Component {
     //  }
 
         let persons = null
+        let btnClass = [classes.Button];
+
         
         // upon re-render, a new random number is generated for all mapped items
         //let randomNum = Math.floor(Math.random() * 30);
@@ -176,27 +180,33 @@ class App extends Component {
                 //     backgroundColor: 'lightpink',
                 //     color: 'black', 
                 // }
+
+
+        btnClass.push(classes.Red);
+
         }
 
         // classnames are defined here to be set dynamically based on showPersons True of False
         // let class_list = ['red', 'bold'].join(' ')
 
-        const class_list = [];
+
+
+        const assigned_classes = [];
 
         if (this.state.persons.length <= 2) {
-            class_list.push('red')
+            assigned_classes.push(classes.red)
         }
         if (this.state.persons.length <= 1) {
-            class_list.push('bold')
+            assigned_classes.push(classes.bold)
         }
 
 
 
         return (
 
-            <div className="App">
+            <div className={classes.App.module}>
                 <h1> Starter App</h1>
-                <p className = {class_list.join(' ')} > Dynamically set class here </p>
+                <p className = {assigned_classes.join(' ')} > Dynamically set class here </p>
                 {/* DO NOT use this {this.switchNameHandler()} as 
                 // it will execute immediately when App is rendered and exceed Maximum Update depth */}
                 {/*   
@@ -205,16 +215,18 @@ class App extends Component {
                 <button onClick = {this.changeFirstName.bind(this, 'NameChange with Bind' )}> Change First Name with Bind</button>
                 <button onClick = {() => this.changeFirstName('NameChange with Arrow')}>Change First Name with Arrow </button>   
                 */}
-                <StyledButton
+                <button
                         //key = {() => shortid.generate()} 
                         //style = {style} 
                         // list_displayed = {this.state.showPersons}
-                        onClick = {this.restoreState}> Restore State  </StyledButton>
-                    <StyledButton
+                        className = {classes.Button}
+                        onClick = {this.restoreState}> Restore State  </button>
+                    <button
                         //style = {style}
                         //key = {2}
-                        list_displayed = {this.state.showPersons}
-                        onClick = {this.togglePersonsHandler}> Toggle Person components</StyledButton>       
+                        // list_displayed = {this.state.showPersons}
+                        className = {btnClass.join(' ')}
+                        onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
                         {/*  added persons obj to be dynamically rendered */}
                         {persons}
     
