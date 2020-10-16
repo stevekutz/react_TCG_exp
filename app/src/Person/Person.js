@@ -53,6 +53,13 @@ import classes from './person.module.css';   // and of course rename the source 
 const Person = (props) => {
 
     let randomNum = Math.floor(Math.random() * 30);
+
+    const rnd = Math.random();
+
+    if (rnd > 0.7) {
+        throw new Error(' Display Error Message here')
+    }
+
     // const style = {
     //     '@media (min-width: 500px)':{
     //          width: '400px',

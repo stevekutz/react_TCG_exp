@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 // import Radium, {StyleRoot} from 'radium';
 // import styled from 'styled-components';
 import classes from './App.module.css';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+
 
 import Person from './Person/Person'
 var shortid = require('shortid');
@@ -80,35 +82,28 @@ class App extends Component {
     }
 
     inputNameHandler = (event, id) => {
-        // // returns index if id is located in state
-        // const personIndex = this.state.persons.findIndex( p => {
-        //     return p.id === id;
-        // })
+        // returns index if id is located in state
+        const personIndex = this.state.persons.findIndex( p => {
+            return p.id === id;
+        })
     
-        // // create copy of state at located id
-        // const person = {...this.state.persons[personIndex]};
+        // create copy of state at located id
+        const person = {...this.state.persons[personIndex]};
 
-        // // create new data from event value info
-        // person.name = event.target.value;
+        // create new data from event value info
+        person.name = event.target.value;
 
-        // // make copy of state
-        // const persons_copy = [...this.state.persons];
+        // make copy of state
+        const persons_copy = [...this.state.persons];
 
-        // // set info at personIndex from copy of state
-        // persons_copy[personIndex] = person;
+        // set info at personIndex from copy of state
+        persons_copy[personIndex] = person;
 
-        // // set state with updated data
-        // this.setState({persons: persons_copy});
+        // set state with updated data
+        this.setState({persons: persons_copy});
     
 
-        //  this should work
-        console.log(
-            '******** target name & value in updated handler',
-            event.target.name,
-            event.target.value
-        );
 
-        this.setState({[event.target.name]: event.target.value})
 
     
     }
@@ -160,16 +155,17 @@ class App extends Component {
             persons = (
                 <div> 
                     {/* using map to RETURN an array of items fed as attributes to the Person component  */}
+                    {/* Person components is wrapped by ErrorBoundary which is used as a HOC */}
                     {this.state.persons.map((person, index) => {
-                        return <Person 
-                            key = {person.id} 
+                        return <ErrorBoundary  key = {person.id}><Person 
+                            // key = {person.id} 
                             name = {person.name} 
                             age = {person.age}
                             // fav_num = {randomNum} 
                             // readOnly = {!person.showPersons}
                             clickDelete = {() => this.deletePersonHandler(index)}
                             clickChanged = {(event) => this.inputNameHandler(event, person.id)}
-                            />
+                            /></ErrorBoundary>
                     })}
 
                 </div>
@@ -205,7 +201,7 @@ class App extends Component {
 
         return (
 
-            <div className={classes.App.module}>
+            <div className={classes.App}>
                 <h1> Starter App</h1>
                 <p className = {assigned_classes.join(' ')} > Dynamically set class here </p>
                 {/* DO NOT use this {this.switchNameHandler()} as 
