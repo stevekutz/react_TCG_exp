@@ -54,11 +54,11 @@ const Person = (props) => {
 
     let randomNum = Math.floor(Math.random() * 30);
 
-    const rnd = Math.random();
+    // const rnd = Math.random();
 
-    if (rnd > 0.7) {
-        throw new Error(' Display Error Message here')
-    }
+    // if (rnd > 0.7) {
+    //     throw new Error(' Display Error Message here')
+    // }
 
     // const style = {
     //     '@media (min-width: 500px)':{

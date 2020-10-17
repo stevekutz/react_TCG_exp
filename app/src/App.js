@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 // import Radium, {StyleRoot} from 'radium';
 // import styled from 'styled-components';
 import classes from './App.module.css';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+//import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 
 import Person from './Person/Person'
@@ -157,7 +157,7 @@ class App extends Component {
                     {/* using map to RETURN an array of items fed as attributes to the Person component  */}
                     {/* Person components is wrapped by ErrorBoundary which is used as a HOC */}
                     {this.state.persons.map((person, index) => {
-                        return <ErrorBoundary  key = {person.id}><Person 
+                        return <Person 
                             // key = {person.id} 
                             name = {person.name} 
                             age = {person.age}
@@ -165,7 +165,7 @@ class App extends Component {
                             // readOnly = {!person.showPersons}
                             clickDelete = {() => this.deletePersonHandler(index)}
                             clickChanged = {(event) => this.inputNameHandler(event, person.id)}
-                            /></ErrorBoundary>
+                            />
                     })}
 
                 </div>
