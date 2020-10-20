@@ -3,6 +3,8 @@ import Person from './Person/Person'
 
 
 const Persons = (props) => props.persons.map((person, index) => {
+    console.log(' Persons.js rendering Person component')
+   
     return <Person 
                 key = {person.id} 
                 name = {person.name} 

@@ -7,7 +7,10 @@ import classes from './App.module.css';
 //import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 
-import Persons from '../components/Persons/Persons'
+// import Persons from '../components/Persons/Persons'
+
+import PersonsClass from '../components/Persons/PersonsClass';
+
 import Cockpit from '../Cockpit/Cockpit';
 
 var shortid = require('shortid');
@@ -21,6 +24,22 @@ const origState = {
 }
     
 class App extends Component {
+    // legacy way to manually set up constructor to set initial state based on props
+    constructor(props) {
+        super(props);
+        console.log(' the Apps.js constructor is initializated ')
+        // if you want to initialize state here, use the syntax below, NOT setState
+        // this.state = {
+        // persons: [],
+        // showPersons: false,
+        // }
+    }        
+
+
+
+
+    
+    // more modern way: adds constructor, calls super(props), and sets state
     state = {
         persons: [
             {id: shortid.generate(),  name: 'Joey', age: 22},
@@ -30,6 +49,32 @@ class App extends Component {
         otherState: 'some value',
         showPersons: false,
     }
+
+
+    // AFTER the constructor, getDerivedStateFromProps will run (this is a static method)
+    static getDerivedStateFromProps(props, state) {
+        console.log(' getDerivedStateFromProps called', props);
+        return state
+    
+    }
+
+    // Down the lifecycle path, AFTER Person comp rendered
+    // THEN, ComponentDidMount is run
+    componentDidMount() {
+        console.log(' App.js ComponentDidMount  run')
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log( 'App.js shouldComponentUpdatee called ')
+        // return false // prevents toggle
+        return true;
+    }
+
+
+    componentDidUpdate() {
+        console.log(' App.js componentDidUpdate called ')
+    }
+
 
     inputNameHandler = (event, id) => {
         // returns index if id is located in state
@@ -74,7 +119,9 @@ class App extends Component {
     }
 
     render() {
-
+        // after `getDrivedStateFromProps called`, render is called 
+        // after which all child components get rendered
+        console.log( 'render now called ')
 
         let persons = null
         let btnClass = [classes.Button];
@@ -86,7 +133,7 @@ class App extends Component {
 
         if(this.state.showPersons) {
             persons = (
-                <Persons 
+                <PersonsClass 
                     persons = {this.state.persons}
                     clickDelete = {this.deletePersonHandler}  
                     clickChanged = {this.inputNameHandler}  
@@ -119,6 +166,7 @@ class App extends Component {
 
             <div className={classes.App}>
                 <Cockpit 
+                    title = {this.props.myTitle}
                     showPersons = {this.state.showPersons}
                     persons = {this.state.persons}
                     restoreState = {this.restoreState}

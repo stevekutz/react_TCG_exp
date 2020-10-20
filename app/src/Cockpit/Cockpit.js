@@ -22,7 +22,7 @@ const Cockpit = (props) => {
 
     return (
         <div className = {classes.Cockpit}>
-            <h1> Starter App</h1>
+            <h1> {props.title}</h1>
             <p className = {assigned_classes.join(' ')} > Dynamically set class here </p>
 
             <button  
