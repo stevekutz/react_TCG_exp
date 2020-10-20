@@ -8,6 +8,8 @@ import classes from './App.module.css';
 
 
 import Persons from '../components/Persons/Persons'
+import Cockpit from '../Cockpit/Cockpit';
+
 var shortid = require('shortid');
 
 const origState = {
@@ -84,13 +86,11 @@ class App extends Component {
 
         if(this.state.showPersons) {
             persons = (
-                <div> 
-                    <Persons 
-                        persons = {this.state.persons}
-                        clickDelete = {this.deletePersonHandler}  
-                        clickChanged = {this.inputNameHandler}  
-                    />
-                </div>
+                <Persons 
+                    persons = {this.state.persons}
+                    clickDelete = {this.deletePersonHandler}  
+                    clickChanged = {this.inputNameHandler}  
+                />
 
             );
                 
@@ -104,32 +104,28 @@ class App extends Component {
 
 
 
-        const assigned_classes = [];
+        // const assigned_classes = [];
 
-        if (this.state.persons.length <= 2) {
-            assigned_classes.push(classes.red)
-        }
-        if (this.state.persons.length <= 1) {
-            assigned_classes.push(classes.bold)
-        }
+        // if (this.state.persons.length <= 2) {
+        //     assigned_classes.push(classes.red)
+        // }
+        // if (this.state.persons.length <= 1) {
+        //     assigned_classes.push(classes.bold)
+        // }
 
 
 
         return (
 
             <div className={classes.App}>
-                <h1> Starter App</h1>
-                <p className = {assigned_classes.join(' ')} > Dynamically set class here </p>
-
-                <button  
-                        className = {classes.Button}
-                        onClick = {this.restoreState}> Restore State  </button>
-                    <button
-                        className = {btnClass.join(' ')}    
-                        onClick = {this.togglePersonsHandler}> Toggle Person components</button>       
-                        {/*  added persons obj to be dynamically rendered */}
-                        {persons}
-    
+                <Cockpit 
+                    showPersons = {this.state.showPersons}
+                    persons = {this.state.persons}
+                    restoreState = {this.restoreState}
+                    togglePersonsHandler = {this.togglePersonsHandler}
+                
+                />
+                {persons}
 
             </div>    
         )
