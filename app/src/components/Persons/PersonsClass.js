@@ -9,9 +9,25 @@ class PersonsClass extends Component {
     //     return state
     // }
 
-    shouldComponentUpdate(nextProps, nextState ){
-        console.log(' PersonsClass shouldComponentUpdate called ')
-        return true
+    // Verifies if anything changeds and requires a conditional to return a boolean
+    // Used to optimize performance by preventing unecessary re-renders
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log( '\t\t\t@@@@ PersonsClass.js shouldComponentUpdate called ')
+        // return false // prevents toggle
+        if(nextProps.persons !== this.props.persons) {
+            console.log('!!!! nextProps.persons NOT equal to this.props.persons')
+            console.log(' nextProps.persons', nextProps.persons)
+            console.log('props', this.props.persons)
+            return true;
+        } else {
+            console.log(' !!!! NO CHANGE')
+            console.log(' nextProps.persons', nextProps.persons)
+            console.log('props', this.props.persons)
+            
+            return false
+
+        }    
     }
 
     getSnapshotBeforeUpdate(prepProps, prevState) {

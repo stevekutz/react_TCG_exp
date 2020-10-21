@@ -33,12 +33,12 @@ const Cockpit = (props) => {
 
 
     useEffect ( () => {
-        console.log( 'Cockpit.js 2nd useEffect called ')
+        console.log( '%%%%% Cockpit.js 2nd useEffect called ')
         
 
 
         return () => {
-            console.log( ' no 2nd arg,  ####   2nd Cleanup')
+            console.log( '%%%%%  no 2nd arg,  ####   2nd Cleanup')
         
         }
     
@@ -55,10 +55,10 @@ const Cockpit = (props) => {
 
     const assigned_classes = [];
 
-    if (props.persons.length <= 2) {
+    if (props.personsLength <= 2) {
         assigned_classes.push(classes.red)
     }
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
         assigned_classes.push(classes.bold)
     }
 
@@ -81,4 +81,4 @@ const Cockpit = (props) => {
 }
 
 
-export default Cockpit;
+export default React.memo(Cockpit);

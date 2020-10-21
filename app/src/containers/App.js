@@ -65,12 +65,6 @@ class App extends Component {
         console.log(' App.js ComponentDidMount  run')
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log( 'App.js shouldComponentUpdatee called ')
-        // return false // prevents toggle
-        return true;
-    }
-
 
     componentDidUpdate() {
         console.log(' App.js componentDidUpdate called ')
@@ -171,7 +165,7 @@ class App extends Component {
                 ? <Cockpit 
                     title = {this.props.myTitle}
                     showPersons = {this.state.showPersons}
-                    persons = {this.state.persons}
+                    personsLength = {this.state.persons.length}
                     restoreState = {this.restoreState}
                     togglePersonsHandler = {this.togglePersonsHandler}
                 />
