@@ -18,12 +18,33 @@ const Cockpit = (props) => {
         // the setTimeout simulate an API call
         setTimeout( () => {
             alert('save data')
-        }, 1000)
+        }, 1000);
+        
+        // here a return function can do clean up work as would a componentWillUnmount
+        return () => {
+            console.log('\t\t >>> 2nd arg [],  CLEANUP - runs BEFORE main useEffect but AFTER 1st render')
+        };
+
 
     // this second argument is an array that lists all variables or data useEffect should act upon
     //});   // like this, runs useEffect on any change such as togglePerson
-    //}, []); // like this, runs ONCE ONLY and does not react to changes in username or toggle
-    },[props.persons]);  // like this, runs useEffect when person is updated
+     }, []); // like this, runs ONCE ONLY and does not react to changes in username or toggle
+    // },[props.persons]);  // like this, runs useEffect when person is updated
+
+
+    useEffect ( () => {
+        console.log( 'Cockpit.js 2nd useEffect called ')
+        
+
+
+        return () => {
+            console.log( ' no 2nd arg,  ####   2nd Cleanup')
+        
+        }
+    
+    
+    
+    })   // this runs when togglePerson called OR when ToggleCockpit called
 
 
     let btnClass = [classes.Button];
