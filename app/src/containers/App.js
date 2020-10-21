@@ -39,7 +39,7 @@ class App extends Component {
 
 
     
-    // more modern way: adds constructor, calls super(props), and sets state
+    // more modern way: automatically >>  adds constructor, calls super(props), and sets state
     state = {
         persons: [
             {id: shortid.generate(),  name: 'Joey', age: 22},
