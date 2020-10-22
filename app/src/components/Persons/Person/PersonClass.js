@@ -3,8 +3,34 @@ import classes from './person.module.css';
 import Aux from '../../../hoc/Aux';
 import withClass2 from '../../../hoc/withClass2';
 
+import PropTypes from 'prop-types';
+
 class PersonClass extends Component {
+    constructor(props)  {
+        super(props);
+        this.inputElementRef = null;
+
+        this.setInputElementRef = el => {
+            this.inputElementRef = el;
+        }
     
+        this.focusTextInput = () => {
+            if (this.inputElementRef) this.inputElementRef.focus()
+        }
+
+    }
+
+    componentDidMount() {
+        this.focusTextInput()
+        
+        // console.log('inputElementRef', this.inputElementRef)
+        
+        // this.inputElementRef.current.focusTextInput();
+    
+    }
+
+
+
     render() {
         
         let randomNum = Math.floor(Math.random() * 30);
@@ -12,27 +38,41 @@ class PersonClass extends Component {
         console.log(' Person Class Component rendering')
         
         return (
-            <div>
+            
+            <Aux>
             {/* <React.Fragment> */}           
-            {/* <Aux className = {classes.Person}>  */}
             {/* <div  className = {classes.Person} > */}
                 <p onClick = {this.props.clickDelete}> 
                     My name is {this.props.name} and I am {this.props.age} years old</p>  
-            {/*   <p> {props.children} </p>     adding 2-way binding by including props.name to pre-fill the form with orig name */}
+                <p key = 'a'> {this.props.children} </p>     {/* adding 2-way binding by including props.name to pre-fill the form with orig name */}
                 <input 
+                    key = 'b'
                     type = "text" 
                     onChange = {this.props.clickChanged} 
-                    value = {this.props.name}/>
+                    ref = {this.setInputElementRef}  // sets focus to last element
+                    // ref = {this.focusTextInput}    // does NOT set focus to last element
+                    value = {this.props.name}
+                    />
             {/* </div>  */}
-            {/*  </Aux>  */}
             {/* </React.Fragment> */}
-            </div>
+            </Aux>
+            
         )
     
     
     }
 
 }
+
+// watches props in dev mode and presents warnings if
+PersonClass.propTypes = {
+    clickDelete: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    clickChanged: PropTypes.func,
+
+}
+
 
 // this adds wrapped div with CSS code
 export default withClass2(PersonClass, classes.Person)

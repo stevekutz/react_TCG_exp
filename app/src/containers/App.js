@@ -16,11 +16,12 @@ import WithClass from '../hoc/WithClass';
 import withClass2 from '../hoc/withClass2';
 
 
+
 var shortid = require('shortid');
 
 const origState = {
     persons: [
-        {id: shortid.generate(),  name: 'Joey', age: 22},
+        {id: shortid.generate(),  name: 'Joey', age: '22'},
         {id: shortid.generate(), name: 'Alexander', age: 34},
         {id: shortid.generate(), name: 'Mike', age: 44},
     ]  
@@ -52,6 +53,7 @@ class App extends Component {
         otherState: 'some value',
         showPersons: false,
         showCockpit: true,
+        changeCounter: 0,
     }
 
 
@@ -93,11 +95,30 @@ class App extends Component {
         persons_copy[personIndex] = person;
 
         // set state with updated data
-        this.setState({persons: persons_copy});
+        // NOTE: attributes are updated in a batch and changeCounter not guaranteed
+        //  to always be in previous state before update
+        // this.setState({
+        //     persons: persons_copy, 
+        //     changeCounter: this.state.changeCounter + 1 
+        //     });
     
+        // this is better way set state that depends on old state
+        //this guarantees previous state for counter
+
+        this.setState( (prevState, prevProps) => {
+            return {
+                persons: persons_copy,
+                changeCounter: prevState.changeCounter,
+            
+            }
+        
+        })
+
+
     }
 
     restoreState = () => {
+
         this.setState({ persons: origState.persons})  
     }
 
