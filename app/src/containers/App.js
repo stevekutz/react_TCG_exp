@@ -12,7 +12,8 @@ import classes from './App.module.css';
 import PersonsClass from '../components/Persons/PersonsClass';
 
 import Cockpit from '../Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass'
+import WithClass from '../hoc/WithClass';
+import withClass2 from '../hoc/withClass2';
 
 
 var shortid = require('shortid');
@@ -161,9 +162,9 @@ class App extends Component {
 
         return (
 
-            // <div className={classes.App}> 
+            // <WithClass classProp ={classes.App}>
+             <div> 
 
-            <WithClass classProp ={classes.App}>
                 <button onClick = { () => {this.setState({showCockpit: !this.state.showCockpit}) }}>  Toggle Cockpit </button>
                 {this.state.showCockpit 
                 ? <Cockpit 
@@ -176,11 +177,14 @@ class App extends Component {
                 : null
                 }
                 {persons}
-            </WithClass>
-            // </div> 
+             </div> 
+            // </WithClass>
         )
     }
 
 }
 
-export default App;
+// export default App;
+
+                          
+export default withClass2(App, classes.App)
