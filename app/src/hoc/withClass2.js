@@ -11,10 +11,12 @@ import React from 'react'
 
 // a lower case `w` is used because we are using this as a function, not a Component
 
+// !!!!  props must be passed in using {...props}   NOT props = {...props}
+
 const withClass2 = (WrappedComponent, classProp) => {
    return props => (
         <div  className = {classProp}> 
-            <WrappedComponent/>
+            <WrappedComponent {...props}/>
         </div>
    )
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from './person.module.css';
 import Aux from '../../../hoc/Aux';
-
+import withClass2 from '../../../hoc/withClass2';
 
 class PersonClass extends Component {
     
@@ -12,7 +12,8 @@ class PersonClass extends Component {
         console.log(' Person Class Component rendering')
         
         return (
-            <React.Fragment>           
+            <div>
+            {/* <React.Fragment> */}           
             {/* <Aux className = {classes.Person}>  */}
             {/* <div  className = {classes.Person} > */}
                 <p onClick = {this.props.clickDelete}> 
@@ -24,7 +25,8 @@ class PersonClass extends Component {
                     value = {this.props.name}/>
             {/* </div>  */}
             {/*  </Aux>  */}
-            </React.Fragment>
+            {/* </React.Fragment> */}
+            </div>
         )
     
     
@@ -32,4 +34,9 @@ class PersonClass extends Component {
 
 }
 
-export default PersonClass
+// this adds wrapped div with CSS code
+export default withClass2(PersonClass, classes.Person)
+
+
+
+// export default PersonClass
