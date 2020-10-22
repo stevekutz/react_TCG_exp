@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from './cockpit.module.css'
 
 
 const Cockpit = (props) => {
+    const toggleBtnRef = useRef(null);
+
+
     // useEffect will run the given function once for every render cycle
     // it combiones functionality of componentDidMount and componentDidUpdate into one effect
     
@@ -16,10 +19,12 @@ const Cockpit = (props) => {
     
         console.log("\t Cockpit.js  useEffect called")
         // the setTimeout simulate an API call
-        setTimeout( () => {
-            alert('save data')
-        }, 1000);
+        // setTimeout( () => {
+        //     alert('save data')
+        // }, 1000);
         
+        toggleBtnRef.current.click()
+
         // here a return function can do clean up work as would a componentWillUnmount
         return () => {
             console.log('\t\t >>> 2nd arg [],  CLEANUP - runs BEFORE main useEffect but AFTER 1st render')
@@ -72,6 +77,7 @@ const Cockpit = (props) => {
                     className = {classes.Button}
                     onClick = {props.restoreState}> Restore State  </button>
                 <button
+                    ref = {toggleBtnRef}
                     className = {btnClass.join(' ')}    
                     onClick = {props.togglePersonsHandler}> Toggle Person components</button> 
         </div>

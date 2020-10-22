@@ -25,8 +25,11 @@ class PersonClass extends Component {
         
         // console.log('inputElementRef', this.inputElementRef)
         
+        // CRASHES - Cannot read property 'focusTextInput' of undefined
         // this.inputElementRef.current.focusTextInput();
-    
+        
+        // CRASHES - Cannot read property current of 'null'
+        //this.inputElementRef.current.focus()
     }
 
 
@@ -49,6 +52,7 @@ class PersonClass extends Component {
                     key = 'b'
                     type = "text" 
                     onChange = {this.props.clickChanged} 
+                    //ref = {this.inputElementRef}       // does NOT set focus to last element
                     ref = {this.setInputElementRef}  // sets focus to last element
                     // ref = {this.focusTextInput}    // does NOT set focus to last element
                     value = {this.props.name}
