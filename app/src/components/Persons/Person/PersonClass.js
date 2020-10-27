@@ -22,9 +22,14 @@ class PersonClass extends Component {
 
     }
 
+
+    static contextType = AuthContext;
+
     componentDidMount() {
         this.focusTextInput()
         
+        console.log('context >>>>> ', this.context.authenticated);
+
         // console.log('inputElementRef', this.inputElementRef)
         
         // CRASHES - Cannot read property 'focusTextInput' of undefined
@@ -47,10 +52,9 @@ class PersonClass extends Component {
             <Aux>
             {/* <React.Fragment> */}           
             {/* <div  className = {classes.Person} > */}
-                <AuthContext.Consumer>
                 
-                { (context) =>  context.authenticated ? <p> Authenticated ! </p> : <p> Please log in </p>}
-                </AuthContext.Consumer>
+                { this.context.authenticated ? <p> Authenticated ! </p> : <p> Please log in </p>}
+
 
                 <p onClick = {this.props.clickDelete}> 
                     My name is {this.props.name} and I am {this.props.age} years old</p>  

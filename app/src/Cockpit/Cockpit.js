@@ -1,12 +1,15 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import classes from './cockpit.module.css'
 import AuthContext from '../context/auth-context';
+import authContext from '../context/auth-context';
 
 
 
 const Cockpit = (props) => {
     const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext)
 
+    console.log('>>> useContext >>> ', authContext.authenticated)
 
     // useEffect will run the given function once for every render cycle
     // it combiones functionality of componentDidMount and componentDidUpdate into one effect
@@ -85,9 +88,9 @@ const Cockpit = (props) => {
                 onClick = {props.togglePersonsHandler}
            > Toggle Person components </button>
             
-            <AuthContext.Consumer>  
-            { (context) => <button onClick= {context.login}> Log in </button>}
-            </AuthContext.Consumer>
+          
+            <button onClick= {authContext.login}> Log in </button>
+
 
         </div>
     
