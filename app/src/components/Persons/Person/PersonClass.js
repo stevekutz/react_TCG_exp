@@ -4,6 +4,8 @@ import Aux from '../../../hoc/Aux';
 import withClass2 from '../../../hoc/withClass2';
 
 import PropTypes from 'prop-types';
+import AuthContext from '../../../context/auth-context';
+
 
 class PersonClass extends Component {
     constructor(props)  {
@@ -45,7 +47,10 @@ class PersonClass extends Component {
             <Aux>
             {/* <React.Fragment> */}           
             {/* <div  className = {classes.Person} > */}
-                {this.props.isAuth ? <p> Authenticated ! </p> : <p> Please log in </p>}
+                <AuthContext.Consumer>
+                
+                { (context) =>  context.authenticated ? <p> Authenticated ! </p> : <p> Please log in </p>}
+                </AuthContext.Consumer>
 
                 <p onClick = {this.props.clickDelete}> 
                     My name is {this.props.name} and I am {this.props.age} years old</p>  

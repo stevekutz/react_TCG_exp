@@ -15,6 +15,8 @@ import Cockpit from '../Cockpit/Cockpit';
 import WithClass from '../hoc/WithClass';
 import withClass2 from '../hoc/withClass2';
 
+import AuthContext from '../context/auth-context';
+
 
 
 var shortid = require('shortid');
@@ -193,6 +195,14 @@ class App extends Component {
              <div> 
 
                 <button onClick = { () => {this.setState({showCockpit: !this.state.showCockpit}) }}>  Toggle Cockpit </button>
+                
+                {/* Must wrap everything that needs context  */}
+                <AuthContext.Provider value = {{    
+                    authenticated: this.state.authenticated, 
+                    login: this.loginHandler,
+                }}>
+                
+                
                 {this.state.showCockpit 
                 ? <Cockpit 
                     title = {this.props.myTitle}
@@ -200,11 +210,12 @@ class App extends Component {
                     personsLength = {this.state.persons.length}
                     restoreState = {this.restoreState}
                     togglePersonsHandler = {this.togglePersonsHandler}
-                    login = {this.loginHandler} 
+                    // login = {this.loginHandler} 
                 />
                 : null
                 }
                 {persons}
+                </AuthContext.Provider>
              </div> 
             // </WithClass>
         )
