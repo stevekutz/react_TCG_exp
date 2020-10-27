@@ -54,6 +54,7 @@ class App extends Component {
         showPersons: false,
         showCockpit: true,
         changeCounter: 0,
+        authenticated: false,
     }
 
 
@@ -137,6 +138,10 @@ class App extends Component {
         this.setState({persons: persons_copy})
     }
 
+    loginHandler = () => {
+        this.setState({authenticated: true})
+    } 
+
     render() {
         // after `getDrivedStateFromProps called`, render is called 
         // after which all child components get rendered
@@ -155,7 +160,8 @@ class App extends Component {
                 <PersonsClass 
                     persons = {this.state.persons}
                     clickDelete = {this.deletePersonHandler}  
-                    clickChanged = {this.inputNameHandler}  
+                    clickChanged = {this.inputNameHandler} 
+                    isAuthenticated = {this.state.authenticated} 
                 />
 
             );
@@ -194,6 +200,7 @@ class App extends Component {
                     personsLength = {this.state.persons.length}
                     restoreState = {this.restoreState}
                     togglePersonsHandler = {this.togglePersonsHandler}
+                    login = {this.loginHandler} 
                 />
                 : null
                 }

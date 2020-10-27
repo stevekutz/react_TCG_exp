@@ -74,12 +74,18 @@ const Cockpit = (props) => {
             <p className = {assigned_classes.join(' ')} > Dynamically set class here </p>
 
             <button  
-                    className = {classes.Button}
-                    onClick = {props.restoreState}> Restore State  </button>
-                <button
-                    ref = {toggleBtnRef}
-                    className = {btnClass.join(' ')}    
-                    onClick = {props.togglePersonsHandler}> Toggle Person components</button> 
+                className = {classes.Button}
+                onClick = {props.restoreState}
+            > Restore State </button>
+            <button
+                ref = {toggleBtnRef}
+                className = {btnClass.join(' ')}    
+                onClick = {props.togglePersonsHandler}
+           > Toggle Person components </button>
+            <button
+                onClick= {props.login}
+            > Log in </button>
+
         </div>
     
     );

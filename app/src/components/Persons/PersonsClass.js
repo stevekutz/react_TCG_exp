@@ -12,23 +12,23 @@ class PersonsClass extends Component {
     // Verifies if anything changeds and requires a conditional to return a boolean
     // Used to optimize performance by preventing unecessary re-renders
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log( '\t\t\t@@@@ PersonsClass.js shouldComponentUpdate called ')
-        // return false // prevents toggle
-        if(nextProps.persons !== this.props.persons) {
-            console.log('!!!! nextProps.persons NOT equal to this.props.persons')
-            console.log(' nextProps.persons', nextProps.persons)
-            console.log('props', this.props.persons)
-            return true;
-        } else {
-            console.log(' !!!! NO CHANGE')
-            console.log(' nextProps.persons', nextProps.persons)
-            console.log('props', this.props.persons)
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log( '\t\t\t@@@@ PersonsClass.js shouldComponentUpdate called ')
+    //     // return false // prevents toggle
+    //     if(nextProps.persons !== this.props.persons) {
+    //         console.log('!!!! nextProps.persons NOT equal to this.props.persons')
+    //         console.log(' nextProps.persons', nextProps.persons)
+    //         console.log('props', this.props.persons)
+    //         return true;
+    //     } else {
+    //         console.log(' !!!! NO CHANGE')
+    //         console.log(' nextProps.persons', nextProps.persons)
+    //         console.log('props', this.props.persons)
             
-            return false
+    //         return false
 
-        }    
-    }
+    //     }    
+    // }
 
     getSnapshotBeforeUpdate(prepProps, prevState) {
         console.log(' PersonClass getSnapShotBeforeUpdate called ')
@@ -53,6 +53,7 @@ class PersonsClass extends Component {
                     age = {person.age}
                     clickDelete = {() => this.props.clickDelete(index)}
                     clickChanged = {(event) => this.props.clickChanged(event, person.id)}
+                    isAuth = {this.props.isAuthenticated}
                 />
             )});
     }

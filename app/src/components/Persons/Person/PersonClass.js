@@ -45,6 +45,8 @@ class PersonClass extends Component {
             <Aux>
             {/* <React.Fragment> */}           
             {/* <div  className = {classes.Person} > */}
+                {this.props.isAuth ? <p> Authenticated ! </p> : <p> Please log in </p>}
+
                 <p onClick = {this.props.clickDelete}> 
                     My name is {this.props.name} and I am {this.props.age} years old</p>  
                 <p key = 'a'> {this.props.children} </p>     {/* adding 2-way binding by including props.name to pre-fill the form with orig name */}
